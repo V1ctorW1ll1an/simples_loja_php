@@ -1,3 +1,11 @@
+<?php
+
+require 'src/config.php';
+include 'src/store.php';
+$store =  new Store($mysql);
+
+$clients = $store->getAllClients();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -33,7 +41,26 @@
     </nav>
   </div>
   <main class="container mt-5">
-    <h1>Home</h1>
+    <h1 class="mb-5">Clientes</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">código</th>
+          <th scope="col">Primeiro nome</th>
+          <th scope="col">Segundo nome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($clients as $client) : ?>
+          <tr>
+            <th scope="row"> <?= $client["codigo"] ?> </th>
+            <td> <?= $client["primeiroNome"] ?> </td>
+            <td> <?= $client["segundoNome"] ?> </td>
+          </tr>
+        <?php endforeach ?>
+      </tbody>
+    </table>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
