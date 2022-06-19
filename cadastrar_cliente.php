@@ -1,3 +1,32 @@
+<?php
+
+
+  require 'src/config.php'
+  include 'src/store.php'  
+  
+
+  if ($_SERVER['REQUEST_METHOD']==='POST') {
+    $primeiroNome = $_POST['primeiroNome'];
+    $segundoNome = $_POST['segundoNome'];
+    $dataNasci = $_POST['dataNasci'];
+    $cpf = $_POST['cpf'];
+    $rg = $_POST['rg'];
+    $endereco = $_POST['endereco'];
+    $cep = $_POST['cep'];
+    $cidade = $_POST['cidade'];
+    $fone = $_POST['fone'];
+    
+    $store = new Store ($mysql);
+    $store->addClient($primeiroNome,$segundoNome,$dataNasci,$cpf, $rg, $endereco, $cep, $cidade, $fone);
+
+    redireciona('index.php');
+} 
+  
+ 
+
+
+  ?>
+
 <!doctype html>
 <html lang="en">
 
