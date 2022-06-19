@@ -29,7 +29,6 @@ class Store
 
         return $sales;
     }
-<<<<<<< HEAD
 
     public function addSale($codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo): array
     {
@@ -48,25 +47,30 @@ class Store
             echo 'Caught exception: ',  $e->getMessage(), "<br>";
         }
     }
-=======
-    
+
     public function addClient(
-        string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, $string $rg, string $endereco, string $cep, string $cidade, string $fone)
-    {
-        $addClient = $this->mysql>prepare("INSERT INTO 
+        string $primeiroNome,
+        string $segundoNome,
+        string $dataNasci,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $fone
+    ) {
+        $addClient = $this->mysql->prepare("INSERT INTO 
         client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
         VALUES (?,?,?,?,?,?,?,?,?,?)");
 
-        $addClient->bind_param('ssssssssss',$primeiroNome,$segundoNome,$dataNasci,$cpf,$rg,$endereco,$cep,$cidade,$fone);
-        
+        $addClient->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
+
         $addClient->execute();
-    }  
-    
+    }
+
     function redirect(string $pagina): void
     {
         header("Location: $pagina");
         die();
     }
-
->>>>>>> 98654ea74d80f094fba89a3f4c267b9ee5e9010c
 }
