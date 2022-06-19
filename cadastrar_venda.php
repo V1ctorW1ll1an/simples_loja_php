@@ -1,3 +1,11 @@
+<?php
+
+require 'src/config.php';
+include 'src/store.php';
+$store =  new Store($mysql);
+
+$clients = $store->getAllClients();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -37,7 +45,7 @@
     <section class="title">
       <h1 class="mb-5">Cadastro de vendas</h1>
 
-      <form>
+      <form method="POST">
         <div class="mb-3">
           <label for="valor_parcial" class="form-label">Valor parcial</label>
           <input id="valor_parcial" class="form-control" type="text" placeholder="Insira o valor em R$">
@@ -53,10 +61,10 @@
         <div class="mb-3">
           <label for="cliente" class="form-label">Selecione um cliente</label>
           <select id="cliente" class="form-select">
-            <option selected>Cliente</option>
-            <option value="1">Joao exemplo</option>
-            <option value="2">Maria exemplo</option>
-            <option value="3">Joaquim exemplo</option>
+            <option selected></option>
+            <?php foreach ($clients as $client) : ?>
+              <option value="<?= $client["codigo"] ?>"><?= $client["primeiroNome"] ?> <?= $client["segundoNome"] ?></option>
+            <?php endforeach ?>
           </select>
         </div>
         <fieldset disabled>
@@ -71,6 +79,7 @@
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="/src/js/store.js"></script>
 </body>
 
 </html>
