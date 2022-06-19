@@ -29,4 +29,22 @@ class Store
 
         return $sales;
     }
+
+    public function addSale($codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo): array
+    {
+        try {
+            $valorTotal = $valorParcial - $valorDesconto + $valorAcrescimo;
+            if (!$codigoCliente || !$valorParcial || !$valorDesconto || !$valorAcrescimo) {
+                return ["message" => "Preencha os campos corretamente", "status" => "error"];
+            }
+            $add = $this->mysql->prepare("INSERT INTO vendas (codigoCliente, valorParcial, valorDesconto, valorAcrescimo,valorTotal, data) VALUES (?,?,?,?,?, NOW())");
+
+            $add->bind_param('idddd', $codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo, $valorTotal);
+            $add->execute();
+
+            return ["message" => "Venda cadastrada com sucesso!", "status" => "ok"];
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "<br>";
+        }
+    }
 }

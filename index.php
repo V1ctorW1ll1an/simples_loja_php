@@ -5,6 +5,9 @@ include 'src/store.php';
 $store =  new Store($mysql);
 
 $clients = $store->getAllClients();
+
+$status  = $_GET['status'];
+$message  = $_GET['message'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,6 +45,15 @@ $clients = $store->getAllClients();
   </div>
   <main class="container mt-5">
     <h1 class="mb-5">Clientes</h1>
+
+    <?php if ($status) : ?>
+      <div class="alert alert-<?php
+                              if ($status === "ok")
+                                echo "success";
+                              ?>" role="alert">
+        <?= $message ?>
+      </div>
+    <?php endif ?>
 
     <table class="table">
       <thead>
