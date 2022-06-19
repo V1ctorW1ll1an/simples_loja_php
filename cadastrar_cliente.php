@@ -7,7 +7,6 @@
   <title>Cadastrar cliente</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
-
 <body>
   <div class="container">
     <nav class="navbar navbar-expand-lg">
@@ -33,9 +32,81 @@
     </nav>
   </div>
   <main class="container mt-5">
+
     <h1>cadastrar clientes</h1>
+
+    <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Primeiro Nome</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe o primeiro nome
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Segundo Nome</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe o segundo nome
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Data de Nascimento</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe a data de nascimento 
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Cpf</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe o cpf
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">RG</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe o RG 
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Endereço</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe o endereço
+    </div>
+  </div>
+ 
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Cidade</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Por favor informe a cidade 
+    </div>
+  </div>
+  <div class="col-md-3">
+   
+  <div class="col-md-3">
+    <label for="validationCustom05" class="form-label">Cep</label>
+    <input type="text" class="form-control" id="validationCustom05" required>
+    <div class="invalid-feedback">
+      Por favor informe o cep
+    </div>
+  </div>
+
+  <br>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Enviar</button>
+  </div>
+</form>
+
+
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
-
 </html>
