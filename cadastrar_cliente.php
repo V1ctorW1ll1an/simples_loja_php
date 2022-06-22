@@ -1,5 +1,6 @@
 <?php
 
+// TESTE
 
 require 'src/config.php';
 include 'src/store.php';
