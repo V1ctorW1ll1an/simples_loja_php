@@ -6,8 +6,10 @@ $store =  new Store($mysql);
 
 $clients = $store->getAllClients();
 
-$status  = $_GET['status'];
-$message  = $_GET['message'];
+if ($_GET['status']) {
+  $status  = $_GET['status'];
+  $message  = $_GET['message'];
+}
 ?>
 <!doctype html>
 <html lang="en">
