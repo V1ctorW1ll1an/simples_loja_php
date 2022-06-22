@@ -54,7 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <a class="nav-link" href="/cadastrar_cliente.php">Clientes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cadastrar_venda.php">Vendas</a>
+              <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Vendas
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="/cadastrar_venda.php">cadastro</a></li>
+                  <li><a class="dropdown-item" href="/vendas.php">todas as vendas</a></li>
+                </ul>
+              </div>
+              <!-- <a class="nav-link" href="/cadastrar_venda.php">Vendas</a> -->
             </li>
           </ul>
         </div>
