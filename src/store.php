@@ -30,16 +30,14 @@ class Store
         return $sales;
     }
     
-    public function addClient(
-        string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, $string $rg, string $endereco, string $cep, string $cidade, string $fone)
+    public function addClient(string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, string $rg, string $endereco, string $cep, string $cidade, string $fone)
     {
-        $addClient = $this->mysql>prepare("INSERT INTO 
-        client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
-        VALUES (?,?,?,?,?,?,?,?,?,?)");
+        $add = $this->mysql>prepare("INSERT INTO client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
+        VALUES (?,?,?,?,?,?,?,?,?)");
 
-        $addClient->bind_param('ssssssssss',$primeiroNome,$segundoNome,$dataNasci,$cpf,$rg,$endereco,$cep,$cidade,$fone);
+        $add->bind_param('sssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
         
-        $addClient->execute();
+        $add->execute();
     }  
     
     function redirect(string $pagina): void

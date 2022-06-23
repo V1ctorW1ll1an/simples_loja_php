@@ -1,6 +1,6 @@
 <?php
 
-$mysql = new mysqli("localhost", "root", "", "Loja", 80);
+$mysql = new mysqli("localhost", "root", "", "Loja");
 
 $mysql->set_charset("utf8");
 

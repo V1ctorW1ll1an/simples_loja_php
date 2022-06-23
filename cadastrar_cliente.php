@@ -1,9 +1,10 @@
 <?php
 
 
-  require 'src/config.php'
-  include 'src/store.php'  
+   require 'src/config.php';
+   include 'src/store.php' ;
   
+
 
   if ($_SERVER['REQUEST_METHOD']==='POST') {
     $primeiroNome = $_POST['primeiroNome'];
@@ -12,19 +13,18 @@
     $cpf = $_POST['cpf'];
     $rg = $_POST['rg'];
     $endereco = $_POST['endereco'];
-    $cep = $_POST['cep'];
     $cidade = $_POST['cidade'];
+    $cep = $_POST['cep'];    
     $fone = $_POST['fone'];
-    
+        
     $store = new Store ($mysql);
-    $store->addClient($primeiroNome,$segundoNome,$dataNasci,$cpf, $rg, $endereco, $cep, $cidade, $fone);
+    $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
 
-    redireciona('index.php');
+    header("location: /index.php");
+    die();
 } 
   
  
-
-
   ?>
 
 <!doctype html>
@@ -62,67 +62,69 @@
   </div>
   <main class="container mt-5">
 
-    <h1>cadastrar clientes</h1>
+    <h1>Cadastrar clientes</h1>
+  <form method="POST">
 
     <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Primeiro Nome</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="primeiroNome" class="form-label">Primeiro Nome</label>
+    <input id="primeiroNome"  type="text" name="primeiroNome" class="form-control"  required>
     <div class="invalid-feedback">
       Por favor informe o primeiro nome
     </div>
   </div>
 
   <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Segundo Nome</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="segundoNome" class="form-label">Segundo Nome</label>
+    <input id= "segundoNome" type="text" name="segundoNome"  class="form-control"  required>
     <div class="invalid-feedback">
       Por favor informe o segundo nome
     </div>
   </div>
-  <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Data de Nascimento</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+ 
+  <div class="col-md-3">
+    <label for="cep" class="form-label">Data de nascimento</label>
+    <input type="text" class="form-control" name="dataNasci" id="dataNasci"  required>
     <div class="invalid-feedback">
-      Por favor informe a data de nascimento 
+      Por favor informe a data de nascimento
     </div>
   </div>
 
   <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Cpf</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="cpf" class="form-label">Cpf</label>
+    <input id= "cpf" name="cpf"   type="text" class="form-control"  required>
     <div class="invalid-feedback">
       Por favor informe o cpf
     </div>
   </div>
 
   <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">RG</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="rg" class="form-label">RG</label>
+    <input type="text" class="form-control" id="rg"  name="rg"required>
     <div class="invalid-feedback">
       Por favor informe o RG 
     </div>
   </div>
   
   <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Endereço</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="endereco" class="form-label">Endereço</label>
+    <input type="text" class="form-control" id="endereco"  name="endereco"required>
     <div class="invalid-feedback">
       Por favor informe o endereço
     </div>
   </div>
  
   <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Cidade</label>
-    <input type="text" class="form-control" id="validationCustom03" required>
+    <label for="cidade" class="form-label">Cidade</label>
+    <input type="text" class="form-control" id="cidade"  name="cidade" required>
     <div class="invalid-feedback">
       Por favor informe a cidade 
     </div>
   </div>
-  <div class="col-md-3">
+  
    
   <div class="col-md-3">
-    <label for="validationCustom05" class="form-label">Cep</label>
-    <input type="text" class="form-control" id="validationCustom05" required>
+    <label for="cep" class="form-label">Cep</label>
+    <input type="text" class="form-control" name="cep" id="cep" required>
     <div class="invalid-feedback">
       Por favor informe o cep
     </div>
