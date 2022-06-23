@@ -29,21 +29,48 @@ class Store
 
         return $sales;
     }
-    
-    public function addClient(string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, string $rg, string $endereco, string $cep, string $cidade, string $fone)
-    {
-        $add = $this->mysql>prepare("INSERT INTO client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
-        VALUES (?,?,?,?,?,?,?,?,?)");
 
-        $add->bind_param('sssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
-        
-        $add->execute();
-    }  
-    
+    public function addSale($codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo): array
+    {
+        try {
+            $valorTotal = $valorParcial - $valorDesconto + $valorAcrescimo;
+            if (!$codigoCliente || !$valorParcial || !$valorDesconto || !$valorAcrescimo) {
+                return ["message" => "Preencha os campos corretamente", "status" => "error"];
+            }
+            $add = $this->mysql->prepare("INSERT INTO vendas (codigoCliente, valorParcial, valorDesconto, valorAcrescimo,valorTotal, data) VALUES (?,?,?,?,?, NOW())");
+
+            $add->bind_param('idddd', $codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo, $valorTotal);
+            $add->execute();
+
+            return ["message" => "Venda cadastrada com sucesso!", "status" => "ok"];
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "<br>";
+        }
+    }
+
+    public function addClient(
+        string $primeiroNome,
+        string $segundoNome,
+        string $dataNasci,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $fone
+    ) {
+        $addClient = $this->mysql->prepare("INSERT INTO 
+        client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
+        VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+        $addClient->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
+
+        $addClient->execute();
+    }
+
     function redirect(string $pagina): void
     {
         header("Location: $pagina");
         die();
     }
-
 }
