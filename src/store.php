@@ -61,9 +61,9 @@ class Store
     ) {
         $addClient = $this->mysql->prepare("INSERT INTO 
         client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
-        VALUES (?,?,?,?,?,?,?,?,?,?)");
+        VALUES (?,?,?,?,?,?,?,?,?)");
 
-        $addClient->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
+        $addClient->bind_param('sssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
 
         $addClient->execute();
     }
