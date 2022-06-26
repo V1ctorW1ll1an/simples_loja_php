@@ -68,6 +68,17 @@ class Store
         $addClient->execute();
     }
 
+    public function updateClient(string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, string $rg, string $endereco, string $cep, string $cidade,
+    string $fone)
+    {
+        $clientupdate =  this->mysql->prepare("UPDATE client SET primeiroNome=?, segundoNome=?, dataNasci=?, cpf=?, rg=?, endereco=?, cep=?, cidade=?, fone=? WHERE codigo=? ");
+
+        $clientupdate->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone, $codigo );
+
+        $clientupdate->execute();
+
+    }
+
     function redirect(string $pagina): void
     {
         header("Location: $pagina");
