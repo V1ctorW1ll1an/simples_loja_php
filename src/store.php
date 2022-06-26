@@ -79,6 +79,14 @@ class Store
 
     }
 
+    public function deleteClient(string $codigo):void
+    {
+        $del = $this->mysql->prepare("DELETE FROM 
+                    client WHERE id=?");
+        $del->bind_param('s',$id);
+        $del->execute();
+    }
+
     function redirect(string $pagina): void
     {
         header("Location: $pagina");

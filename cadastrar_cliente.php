@@ -17,11 +17,10 @@
     $cep = $_POST['cep'];    
     $fone = $_POST['fone'];
         
-    $store = new Store ($mysql);
+    $store = new Store($mysql);
     $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
 
-    header("location: /index.php");
-    die();
+    redirect('/index.php');
 } 
   
  
