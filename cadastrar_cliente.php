@@ -8,13 +8,13 @@ include 'src/store.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $primeiroNome = $_POST['primeiroNome'];
   $segundoNome = $_POST['segundoNome'];
-  $dataNasci = $_POST['dataNasci'];
+  $dataNasci = $_POST['dataNasc'];
   $cpf = $_POST['cpf'];
   $rg = $_POST['rg'];
   $endereco = $_POST['endereco'];
   $cep = $_POST['cep'];
   $cidade = $_POST['cidade'];
-  $fone = $_POST['fone'];
+  $fone = $_POST['telefone'];
 
   $store = new Store($mysql);
   $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
@@ -61,69 +61,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <main class="container mt-5">
 
     <h1>Cadastrar clientes</h1>
-  <form method="POST">
+    <form method="POST" action="cadastrar_cliente.php">
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Primeiro Nome</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe o primeiro nome
+      <div class="col-md-6">
+        <label for="primeiroNome" class="form-label">Primeiro Nome</label>
+        <input type="text" class="form-control" id="primeiroNome" name="primeiroNome" required>
+        <div class="invalid-feedback">
+          Por favor informe o primeiro nome
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Segundo Nome</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe o segundo nome
+      <div class="col-md-6">
+        <label for="segundoNome" class="form-label">Segundo Nome</label>
+        <input type="text" class="form-control" id="segundoNome" name="segundoNome" required>
+        <div class="invalid-feedback">
+          Por favor informe o segundo nome
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Data de Nascimento</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe a data de nascimento
+      <div class="col-md-6">
+        <label for="dataNasci" class="form-label">Data de Nascimento</label>
+        <input type="text" class="form-control" id="dataNasci" name="dataNasc" required>
+        <div class="invalid-feedback">
+          Por favor informe a data de nascimento
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Cpf</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe o cpf
+      <div class="col-md-6">
+        <label for="cpf" class="form-label">Cpf</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" required>
+        <div class="invalid-feedback">
+          Por favor informe o cpf
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">RG</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe o RG
+      <div class="col-md-6">
+        <label for="rg" class="form-label">RG</label>
+        <input type="text" class="form-control" id="rg" name="rg" required>
+        <div class="invalid-feedback">
+          Por favor informe o RG
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Endereço</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe o endereço
+      <div class="col-md-6">
+        <label for="endereco" class="form-label">Endereço</label>
+        <input type="text" class="form-control" id="endereco" name="endereco" required>
+        <div class="invalid-feedback">
+          Por favor informe o endereço
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">Cidade</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Por favor informe a cidade
+      <div class="col-md-6">
+        <label for="cidade" class="form-label">Cidade</label>
+        <input type="text" class="form-control" id="cidade" name="cidade" required>
+        <div class="invalid-feedback">
+          Por favor informe a cidade
+        </div>
       </div>
-    </div>
-    <div class="col-md-3">
 
-      <div class="col-md-3">
-        <label for="validationCustom05" class="form-label">Cep</label>
-        <input type="text" class="form-control" id="validationCustom05" required>
+      <div class="col-md-6">
+        <label for="cep" class="form-label">Cep</label>
+        <input type="text" class="form-control" id="cep" name="cep" required>
         <div class="invalid-feedback">
           Por favor informe o cep
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="telefone" class="form-label">telefone</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" required>
+        <div class="invalid-feedback">
+          Por favor informe o telefone
         </div>
       </div>
 
@@ -131,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="col-12">
         <button class="btn btn-primary" type="submit">Enviar</button>
       </div>
-      </form>
+    </form>
 
 
   </main>

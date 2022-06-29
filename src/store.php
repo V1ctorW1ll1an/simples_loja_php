@@ -68,22 +68,29 @@ class Store
         $addClient->execute();
     }
 
-    public function updateClient(string $primeiroNome, string $segundoNome, string $dataNasci, string $cpf, string $rg, string $endereco, string $cep, string $cidade,
-    string $fone)
-    {
-        $clientupdate =  this->mysql->prepare("UPDATE client SET primeiroNome=?, segundoNome=?, dataNasci=?, cpf=?, rg=?, endereco=?, cep=?, cidade=?, fone=? WHERE codigo=? ");
+    public function updateClient(
+        string $primeiroNome,
+        string $segundoNome,
+        string $dataNasci,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $fone
+    ) {
+        $clientupdate =  $this->mysql->prepare("UPDATE client SET primeiroNome=?, segundoNome=?, dataNasci=?, cpf=?, rg=?, endereco=?, cep=?, cidade=?, fone=? WHERE codigo=? ");
 
-        $clientupdate->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone, $codigo );
+        $clientupdate->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone, $codigo);
 
         $clientupdate->execute();
-
     }
 
-    public function deleteClient(string $codigo):void
+    public function deleteClient(string $codigo): void
     {
         $del = $this->mysql->prepare("DELETE FROM 
                     client WHERE id=?");
-        $del->bind_param('s',$id);
+        $del->bind_param('s', $id);
         $del->execute();
     }
 
