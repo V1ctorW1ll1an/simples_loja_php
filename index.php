@@ -8,6 +8,11 @@ $clients = $store->getAllClients();
 
 $status  = $_GET['status'];
 $message  = $_GET['message'];
+
+// $id = _GET['codigo'];
+
+// $find = store->getById($id);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,13 +35,13 @@ $message  = $_GET['message'];
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/index.php">Home</a>
+              <a class="nav-link active" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cadastrar_cliente.php">Clientes</a>
+              <a class="nav-link" href="cadastrar_cliente.php">Clientes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cadastrar_venda.php">Vendas</a>
+              <a class="nav-link" href="cadastrar_venda.php">Vendas</a>
             </li>
           </ul>
         </div>
@@ -61,14 +66,18 @@ $message  = $_GET['message'];
           <th scope="col">código</th>
           <th scope="col">Primeiro nome</th>
           <th scope="col">Segundo nome</th>
+          <th scope="col">Opções</th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($clients as $client) : ?>
+
+          
           <tr>
             <th scope="row"> <?= $client["codigo"] ?> </th>
             <td> <?= $client["primeiroNome"] ?> </td>
             <td> <?= $client["segundoNome"] ?> </td>
+            <td>  <a class="nav-link active" aria-current="page" href="editar_cliente.php">Editar</a> <a class="nav-link active" aria-current="page" href="index.php">Excluir</a>  </td>
           </tr>
         <?php endforeach ?>
       </tbody>
@@ -78,3 +87,5 @@ $message  = $_GET['message'];
 </body>
 
 </html>
+
+

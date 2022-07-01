@@ -15,14 +15,14 @@
     $endereco = $_POST['endereco'];
     $cidade = $_POST['cidade'];
     $cep = $_POST['cep'];    
-    $fone = $_POST['fone'];
+    $fone = $_POST['telefone'];
         
     $store = new Store ($mysql);
     $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
 
-    header("location: /index.php");
-    die();
-} 
+    redirect('/index.php');
+    
+}
   
  
   ?>
@@ -47,13 +47,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/index.php">Home</a>
+              <a class="nav-link active" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cadastrar_cliente.php">Clientes</a>
+              <a class="nav-link" href="cadastrar_cliente.php">Clientes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cadastrar_venda.php">Vendas</a>
+              <a class="nav-link" href="cadastrar_venda.php">Vendas</a>
             </li>
           </ul>
         </div>
@@ -63,7 +63,7 @@
   <main class="container mt-5">
 
     <h1>Cadastrar clientes</h1>
-  <form method="POST">
+  <form method="POST" action= "/cadastrar_cliente.php">
 
     <div class="col-md-6">
     <label for="primeiroNome" class="form-label">Primeiro Nome</label>
@@ -82,7 +82,7 @@
   </div>
  
   <div class="col-md-3">
-    <label for="cep" class="form-label">Data de nascimento</label>
+    <label for="dataNasci" class="form-label">Data de nascimento</label>
     <input type="text" class="form-control" name="dataNasci" id="dataNasci"  required>
     <div class="invalid-feedback">
       Por favor informe a data de nascimento
@@ -127,6 +127,14 @@
     <input type="text" class="form-control" name="cep" id="cep" required>
     <div class="invalid-feedback">
       Por favor informe o cep
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <label for="telefone" class="form-label">Telefone</label>
+    <input type="text" class="form-control" name="telefone" id="telefone" required>
+    <div class="invalid-feedback">
+      Por favor informe o telefone
     </div>
   </div>
 
