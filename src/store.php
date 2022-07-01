@@ -115,6 +115,7 @@ class Store
     }
 
     public function updateClient(
+        string $codigo,
         string $primeiroNome,
         string $segundoNome,
         string $dataNasci,
@@ -170,9 +171,7 @@ class Store
 
     public function getClientById($idClient)
     {
-        $queryString = $this->mysql->prepare(
-            "SELECT * FROM cliente WHERE codigo=?"
-        );
+        $queryString = $this->mysql->prepare("SELECT * FROM client WHERE codigo=?");
         $queryString->bind_param('s', $idClient);
         $queryString->execute();
         $client = $queryString->get_result()->fetch_assoc();
