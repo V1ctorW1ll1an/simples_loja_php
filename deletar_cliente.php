@@ -1,25 +1,16 @@
 <?php
-    ini_set('display_errors',1);
-    error_reporting(E_ALL);
 
+require 'src/config.php';
+include 'src/store.php';
 
-    require 'src/config.php';
-    include 'src/store.php';
-    
-    
-
-    if ($_SERVER['REQUEST_METHOD']==='POST') {
-        $clientId = $_POST['client_id'];
-        $store = new Store($mysql);
-        $store->deleteClient($clientId);        
-        $store->redirect('index.php');
-
-    }  
-    else 
-    {
-        $clientId = $_GET['client_id'];
-        
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $clientId = $_POST['codigo'];
+    $store = new Store($mysql);
+    $store->deleteClient($clientId);
+    $store->redirect('index.php');
+} else {
+    $clientId = $_GET['client_id'];
+}
 ?>
 
 <!doctype html>
@@ -60,15 +51,15 @@
 
         <h1>Deletar cliente</h1>
         <section class="container mt-5">
-        <h1>Você deseja realmente excluir o cliente?</h1>
-        <form action="deletar_cliente.php" method="POST">
-            <input type="hidden" name="codigo" value="<?= $clientId; ?>" />
-            <input class="mt-5 button is-danger" type="submit" value="Excluir cliente">
-        </form>
-    </section>
+            <h1>Você deseja realmente excluir o cliente?</h1>
+            <form action="deletar_cliente.php" method="POST">
+                <input type="hidden" name="codigo" value="<?= $clientId; ?>" />
+                <input class="mt-5 btn btn-danger" type="submit" value="Excluir cliente">
+            </form>
+        </section>
 
     </main>
-    
+
 </body>
 
 </html>
