@@ -4,6 +4,9 @@ include 'src/store.php';
 $store =  new Store($mysql);
 
 $sales = $store->getAllSales();
+
+$status  = isset($_GET['status']) ? $_GET['status'] : null;
+$message  = isset($_GET['message']) ? $_GET['message'] : null;
 ?>
 
 <!doctype html>
@@ -29,6 +32,14 @@ $sales = $store->getAllSales();
     </div>
     <main class="container">
         <h1 class="mb-5">Vendas</h1>
+        <?php if ($status) : ?>
+            <div class="alert alert-<?php
+                                    if ($status === "ok")
+                                        echo "success";
+                                    ?>" role="alert">
+                <?= $message ?>
+            </div>
+        <?php endif ?>
         <table class="table">
             <thead>
                 <tr>

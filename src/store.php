@@ -208,32 +208,55 @@ class Store
     }
 
     public function updateSale(
-        int $idSale,
+        string $idSale,
         int $idClient,
         float $valorParcial,
         float $valorDesconto,
         float $valorAcrescimo
     ) {
-        $valor_total = $valorParcial - $valorDesconto + $valorAcrescimo;
-        $queryString = $this->mysql->prepare(
-            "UPDATE vendas SET 
+
+
+        try {
+            $valorTotal = $valorParcial - $valorDesconto + $valorAcrescimo;
+            if (
+                !$idClient ||
+                !$valorParcial ||
+                !$valorDesconto ||
+                !$valorAcrescimo
+            ) {
+                return [
+                    "message" => "Preencha os campos corretamente",
+                    "status" => "error"
+                ];
+            }
+
+            $queryString = $this->mysql->prepare(
+                "UPDATE vendas SET 
             codigoCliente=?, 
             valorParcial=?, 
             valorDesconto=?, 
             valorAcrescimo=?, 
-            valor_total=?
-             WHERE codigo=?"
-        );
-        $queryString->bind_param(
-            'iddddi',
-            $idClient,
-            $valorParcial,
-            $valorDesconto,
-            $valorAcrescimo,
-            $valor_total,
-            $idSale
-        );
-        $queryString->execute();
+            valorTotal=?
+            WHERE codigo=?"
+            );
+            $queryString->bind_param(
+                'idddds',
+                $idClient,
+                $valorParcial,
+                $valorDesconto,
+                $valorAcrescimo,
+                $valorTotal,
+                $idSale
+            );
+            $queryString->execute();
+
+            return [
+                "message" => "Venda atualizada com sucesso!",
+                "status" => "ok"
+            ];
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "<br>";
+        }
     }
 
     public function getSaleById($idSale)
