@@ -59,6 +59,8 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
       </thead>
       <tbody>
         <?php foreach ($clients as $client) : ?>
+
+
           <tr>
             <th scope="row"> <?= $client["codigo"] ?> </th>
             <td> <?= $client["primeiroNome"] ?> </td>

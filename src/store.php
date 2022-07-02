@@ -16,6 +16,17 @@ class Store
         $clients = $query->fetch_all(MYSQLI_ASSOC);
         return $clients;
     }
+    public function getById(string $id)
+    {
+        $select = $this->mysql->prepare("SELECT * FROM client WHERE codigo=?");
+        $select->bind_param('s', $id);
+
+        $select->execute();
+
+        $shop = $select->get_result()->fetch_assoc();
+
+        return $shop;
+    }
 
     public function getAllSales(): array
     {
