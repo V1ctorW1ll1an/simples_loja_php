@@ -12,37 +12,75 @@ class Store
     public function getAllClients(): array
     {
         $getClients = 'SELECT * FROM client';
-
         $query = $this->mysql->query($getClients);
-
         $clients = $query->fetch_all(MYSQLI_ASSOC);
         return $clients;
+    }
+    public function getById(string $id)
+    {
+        $select = $this->mysql->prepare("SELECT * FROM client WHERE codigo=?");
+        $select->bind_param('s', $id);
+
+        $select->execute();
+
+        $shop = $select->get_result()->fetch_assoc();
+
+        return $shop;
     }
 
     public function getAllSales(): array
     {
         $getSales = 'SELECT * FROM vendas';
-
         $query = $this->mysql->query($getSales);
-
         $sales = $query->fetch_all(MYSQLI_ASSOC);
-
         return $sales;
     }
 
-    public function addSale($codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo): array
-    {
+    public function addSale(
+        $codigoCliente,
+        $valorParcial,
+        $valorDesconto,
+        $valorAcrescimo
+    ): array {
         try {
             $valorTotal = $valorParcial - $valorDesconto + $valorAcrescimo;
-            if (!$codigoCliente || !$valorParcial || !$valorDesconto || !$valorAcrescimo) {
-                return ["message" => "Preencha os campos corretamente", "status" => "error"];
+            if (
+                !$codigoCliente ||
+                !$valorParcial ||
+                !$valorDesconto ||
+                !$valorAcrescimo
+            ) {
+                return [
+                    "message" => "Preencha os campos corretamente",
+                    "status" => "error"
+                ];
             }
-            $add = $this->mysql->prepare("INSERT INTO vendas (codigoCliente, valorParcial, valorDesconto, valorAcrescimo,valorTotal, data) VALUES (?,?,?,?,?, NOW())");
+            $add = $this->mysql->prepare(
+                "INSERT INTO vendas
+             (
+                codigoCliente,
+                valorParcial,
+                valorDesconto,
+                valorAcrescimo,
+                valorTotal,
+                data)
+                VALUES (?,?,?,?,?, NOW())"
+            );
 
-            $add->bind_param('idddd', $codigoCliente, $valorParcial, $valorDesconto, $valorAcrescimo, $valorTotal);
+            $add->bind_param(
+                'idddd',
+                $codigoCliente,
+                $valorParcial,
+                $valorDesconto,
+                $valorAcrescimo,
+                $valorTotal
+            );
             $add->execute();
 
-            return ["message" => "Venda cadastrada com sucesso!", "status" => "ok"];
+            return [
+                "message" => "Venda cadastrada com sucesso!",
+                "status" => "ok"
+            ];
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "<br>";
         }
@@ -60,17 +98,175 @@ class Store
         string $fone
     ) {
         $addClient = $this->mysql->prepare("INSERT INTO 
-        client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
-        VALUES (?,?,?,?,?,?,?,?,?,?)");
-
-        $addClient->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
-
+        client (
+            primeiroNome, 
+            segundoNome, 
+            dataNasci, 
+            cpf, 
+            rg, 
+            endereco, 
+            cep, 
+            cidade, 
+            fone
+        )
+        VALUES (?,?,?,?,?,?,?,?,?)");
+        $addClient->bind_param(
+            'sssssssss',
+            $primeiroNome,
+            $segundoNome,
+            $dataNasci,
+            $cpf,
+            $rg,
+            $endereco,
+            $cep,
+            $cidade,
+            $fone
+        );
         $addClient->execute();
     }
 
-    function redirect(string $pagina): void
+    public function updateClient(
+        string $codigo,
+        string $primeiroNome,
+        string $segundoNome,
+        string $dataNasci,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $fone
+    ) {
+        $clientupdate =  $this->mysql->prepare(
+            "UPDATE client SET 
+            primeiroNome=?, 
+            segundoNome=?, 
+            dataNasci=?, 
+            cpf=?, 
+            rg=?, 
+            endereco=?, 
+            cep=?, 
+            cidade=?, 
+            fone=? 
+            WHERE codigo=? "
+        );
+        $clientupdate->bind_param(
+            'ssssssssss',
+            $primeiroNome,
+            $segundoNome,
+            $dataNasci,
+            $cpf,
+            $rg,
+            $endereco,
+            $cep,
+            $cidade,
+            $fone,
+            $codigo
+        );
+        $clientupdate->execute();
+    }
+
+    public function deleteClient(string $codigo): void
     {
-        header("Location: $pagina");
+        $del = $this->mysql->prepare("DELETE FROM client WHERE codigo=?");
+        $del->bind_param('s', $codigo);
+        $del->execute();
+    }
+
+    function redirect(string $page): void
+    {
+        header("Location: $page");
         die();
+    }
+
+
+    public function getClientById($idClient)
+    {
+        $queryString = $this->mysql->prepare("SELECT * FROM client WHERE codigo=?");
+        $queryString->bind_param('s', $idClient);
+        $queryString->execute();
+        $client = $queryString->get_result()->fetch_assoc();
+        return $client;
+    }
+
+    public function getSaleByClient($idClient)
+    {
+        $queryString = $this->mysql->prepare("SELECT * FROM vendas 
+                                            WHERE codigoCliente=?");
+        $queryString->bind_param('s', $idClient);
+        $queryString->execute();
+        $sales = $queryString->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $sales;
+    }
+
+    public function deleteSale($idSale)
+    {
+        $queryString = $this->mysql->prepare("DELETE FROM vendas
+                                             WHERE codigo=?");
+        $queryString->bind_param('s', $idSale);
+        $queryString->execute();
+    }
+
+    public function updateSale(
+        string $idSale,
+        int $idClient,
+        float $valorParcial,
+        float $valorDesconto,
+        float $valorAcrescimo
+    ) {
+
+
+        try {
+            $valorTotal = $valorParcial - $valorDesconto + $valorAcrescimo;
+            if (
+                !$idClient ||
+                !$valorParcial ||
+                !$valorDesconto ||
+                !$valorAcrescimo
+            ) {
+                return [
+                    "message" => "Preencha os campos corretamente",
+                    "status" => "error"
+                ];
+            }
+
+            $queryString = $this->mysql->prepare(
+                "UPDATE vendas SET 
+            codigoCliente=?, 
+            valorParcial=?, 
+            valorDesconto=?, 
+            valorAcrescimo=?, 
+            valorTotal=?
+            WHERE codigo=?"
+            );
+            $queryString->bind_param(
+                'idddds',
+                $idClient,
+                $valorParcial,
+                $valorDesconto,
+                $valorAcrescimo,
+                $valorTotal,
+                $idSale
+            );
+            $queryString->execute();
+
+            return [
+                "message" => "Venda atualizada com sucesso!",
+                "status" => "ok"
+            ];
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "<br>";
+        }
+    }
+
+    public function getSaleById($idSale)
+    {
+        $queryString = $this->mysql->prepare(
+            "SELECT * FROM vendas WHERE codigo=?"
+        );
+        $queryString->bind_param('s', $idSale);
+        $queryString->execute();
+        $sale = $queryString->get_result()->fetch_assoc();
+        return $sale;
     }
 }

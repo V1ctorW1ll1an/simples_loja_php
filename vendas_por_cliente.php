@@ -2,11 +2,9 @@
 require 'src/config.php';
 include 'src/store.php';
 $store =  new Store($mysql);
-
-$sales = $store->getAllSales();
-
-$status  = isset($_GET['status']) ? $_GET['status'] : null;
-$message  = isset($_GET['message']) ? $_GET['message'] : null;
+$clientId = $_GET['client_id'];
+$client = $store->getClientById($clientId);
+$sales = $store->getSaleByClient($clientId);
 ?>
 
 <!doctype html>
@@ -31,15 +29,8 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
         <?php require('nav.php') ?>
     </div>
     <main class="container">
-        <h1 class="mb-5">Vendas</h1>
-        <?php if ($status) : ?>
-            <div class="alert alert-<?php
-                                    if ($status === "ok")
-                                        echo "success";
-                                    ?>" role="alert">
-                <?= $message ?>
-            </div>
-        <?php endif ?>
+        <h1 class="mb-5">Cliente: <?= $client['primeiroNome'] . ' ' . $client['segundoNome'] ?></h1>
+
         <table class="table">
             <thead>
                 <tr>
@@ -49,7 +40,6 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
                     <th scope="col">Valor acrescimo</th>
                     <th scope="col">Valor total</th>
                     <th scope="col">Data</th>
-                    <th>Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,14 +51,6 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
                         <td> <?= $sale["valorAcrescimo"] ?> </td>
                         <td> <?= $sale["valorTotal"] ?> </td>
                         <td> <?= $sale["data"] ?> </td>
-                        <td>
-                            <a href="editar_venda.php?saleId=<?= $sale['codigo'] ?>">
-                                <i class="fa-solid fa-pen me-4 text-warning"></i>
-                            </a>
-                            <a href="deletar_venda.php?saleId=<?= $sale['codigo'] ?>">
-                                <i class="fa-solid fa-trash text-danger"></i>
-                            </a>
-                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

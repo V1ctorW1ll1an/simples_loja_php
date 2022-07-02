@@ -20,9 +20,9 @@
         )
             ? removeCurrencyFormat(valor_acrescimo.value)
             : 0;
-        valor_total.value = `R$ ${
+        valor_total.value = `R$ ${parseFloat(
             valor_parcial_value - valor_desconto_value + valor_acrescimo_value
-        }`;
+        ).toFixed(2)}`;
     };
 
     document

@@ -1,29 +1,31 @@
 <?php
-
-
 require 'src/config.php';
 include 'src/store.php';
 
+$store = new Store($mysql);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $id = $_POST['codigo'];
   $primeiroNome = $_POST['primeiroNome'];
   $segundoNome = $_POST['segundoNome'];
-  $dataNasci = $_POST['dataNasc'];
+  $dataNasci = $_POST['dataNasci'];
   $cpf = $_POST['cpf'];
   $rg = $_POST['rg'];
   $endereco = $_POST['endereco'];
-  $cep = $_POST['cep'];
   $cidade = $_POST['cidade'];
+  $cep = $_POST['cep'];
   $fone = $_POST['telefone'];
 
-  $store = new Store($mysql);
-  $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
+  $store->updateClient($id, $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
 
-  $store->redirect('index.php');
+  $store->redirect('/index.php');
+} else {
+  $id = $_GET['client_id'];
 }
 
-?>
 
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -41,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <main class="container mt-5">
 
     <h1>Cadastrar clientes</h1>
-    <form method="POST" action="cadastrar_cliente.php">
-
+    <form method="POST" action="/editar_cliente.php">
+      <input type="hidden" name="codigo" value="<?= $id ?>">
       <div class="col-md-6">
         <label for="primeiroNome" class="form-label">Primeiro Nome</label>
-        <input type="text" class="form-control" id="primeiroNome" name="primeiroNome" required>
+        <input id="primeiroNome" type="text" name="primeiroNome" class="form-control" value="<?= $idinfo['primeiroNome'] ?>" required>
         <div class="invalid-feedback">
           Por favor informe o primeiro nome
         </div>
@@ -53,14 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="col-md-6">
         <label for="segundoNome" class="form-label">Segundo Nome</label>
-        <input type="text" class="form-control" id="segundoNome" name="segundoNome" required>
+        <input id="segundoNome" type="text" name="segundoNome" class="form-control" required>
         <div class="invalid-feedback">
           Por favor informe o segundo nome
         </div>
       </div>
-      <div class="col-md-6">
-        <label for="dataNasci" class="form-label">Data de Nascimento</label>
-        <input type="text" class="form-control" id="dataNasci" name="dataNasc" required>
+
+      <div class="col-md-3">
+        <label for="dataNasci" class="form-label">Data de nascimento</label>
+        <input type="text" class="form-control" name="dataNasci" id="dataNasci" required>
         <div class="invalid-feedback">
           Por favor informe a data de nascimento
         </div>
@@ -68,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="col-md-6">
         <label for="cpf" class="form-label">Cpf</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" required>
+        <input id="cpf" name="cpf" type="text" class="form-control" required>
         <div class="invalid-feedback">
           Por favor informe o cpf
         </div>
@@ -98,17 +101,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
 
-      <div class="col-md-6">
+
+      <div class="col-md-3">
         <label for="cep" class="form-label">Cep</label>
-        <input type="text" class="form-control" id="cep" name="cep" required>
+        <input type="text" class="form-control" name="cep" id="cep" required>
         <div class="invalid-feedback">
           Por favor informe o cep
         </div>
       </div>
 
-      <div class="col-md-6">
-        <label for="telefone" class="form-label">telefone</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" required>
+      <div class="col-md-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="text" class="form-control" name="telefone" id="telefone" required>
         <div class="invalid-feedback">
           Por favor informe o telefone
         </div>
