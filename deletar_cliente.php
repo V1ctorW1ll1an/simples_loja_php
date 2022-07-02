@@ -7,6 +7,13 @@ $store = new Store($mysql);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $clientId = $_POST['codigo'];
+    $sales = $store->getSaleByClient($clientId);
+    if (count($sales) > 0) {
+        $status = 'error';
+        $message = 'Não é possível apagar um cliente vinculado a uma venda, por favor, apague a venda vinculada antes de apagar o cliente!';
+        header("location:/index.php?status=$status&message=$message");
+        die();
+    }
     $store->deleteClient($clientId);
     $store->redirect('index.php');
 } else {

@@ -36,6 +36,8 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
       <div class="alert alert-<?php
                               if ($status === "ok")
                                 echo "success";
+                              elseif ($status === "error")
+                                echo "danger"
                               ?>" role="alert">
         <?= $message ?>
       </div>
