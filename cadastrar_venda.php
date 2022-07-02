@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($response["status"] === "ok") {
     $status = $response['status'];
     $message = $response['message'];
-    header("location: /index.php?status=$status&message=$message");
+    header("location: /vendas.php?status=$status&message=$message");
     die();
   }
 }

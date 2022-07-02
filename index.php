@@ -77,7 +77,10 @@ $message  = isset($_GET['message']) ? $_GET['message'] : null;
                 <i class="fa-solid fa-pen me-4 text-warning"></i>
               </a>
               <a href="deletar_cliente.php?client_id=<?= $client['codigo'] ?>">
-                <i class="fa-solid fa-trash text-danger"></i>
+                <i class="fa-solid fa-trash me-4 text-danger"></i>
+              </a>
+              <a href="vendas_por_cliente.php?client_id=<?= $client['codigo'] ?>">
+                <i class="fa-solid fa-store"></i>
               </a>
             </td>
           </tr>
